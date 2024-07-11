@@ -1,0 +1,42 @@
+package com.jspiders.PanCard.dao;
+
+import java.util.Scanner;
+
+import com.jspiders.PanCard.dto.pan;
+import com.jspiders.PanCard.dto.person;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+
+public class personDao
+{
+	 static Scanner scn=new Scanner(System.in);
+	 public static void insertPerson(int panId)
+
+	 {
+		 EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("development");
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			EntityTransaction transaction=entityManager.getTransaction();
+			System.out.println("enter a panId");
+			
+			pan pan =entityManager.find(pan.class,panId);
+			person p=new person();
+			System.out.println("enter a personId");
+			p.setPersonId(scn.nextInt());
+			System.out.println("enter a personName");
+			p.setPersonName(scn.next());
+			System.out.println("enter a person mail");
+			p.setPersonEmail(scn.next());
+			System.out.println("enter a person contact");
+			p.setPersonContact(scn.next());
+			
+			transaction.begin();
+	    	entityManager.persist(p);
+	    	
+	    	
+	    	transaction.commit();
+			
+	 }
+}
